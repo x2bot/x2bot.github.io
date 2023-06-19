@@ -1,7 +1,7 @@
 	
 	var password; 
 	
-	var cp=2020;
+	var cp=2002;
 	
 	
 	password=prompt('Enter Password',''); 
