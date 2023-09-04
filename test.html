@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Chat</title>
+    <style>
+        /* Base styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .chat-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .message {
+            background-color: #f2f2f2;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .emojis {
+            font-size: 24px;
+        }
+
+        .emoji-button {
+            padding: 5px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* Mobile-responsive styles */
+        @media screen and (max-width: 600px) {
+            input[type="text"],
+            textarea {
+                padding: 8px;
+                margin: 3px 0;
+            }
+
+            button {
+                padding: 8px 15px;
+            }
+        }
+
+        /* Timestamp styles */
+        .timestamp {
+            font-size: 12px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="message" id="chat-box">
+            <p> <center>Welcome to the live chat!</center></p>
+        </div>
+        <div>
+            <input type="text" id="name-input" placeholder="Your Name">
+            <textarea id="message-input" placeholder="Type your message..." rows="4"></textarea>
+            <button onclick="sendMessage()">Send</button>
+            <span class="emojis">
+                <button class="emoji-button" onclick="addEmoji('&#128077;')">👍</button>
+                <button class="emoji-button" onclick="addEmoji('&#128512;')">😀</button>
+                <!-- Add more emoji buttons here -->
+            </span>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript code
+        const nameInput = document.getElementById('name-input');
+        const messageInput = document.getElementById('message-input');
+        const chatBox = document.getElementById('chat-box');
+        
+        function sendMessage() {
+            const name = nameInput.value;
+            const message = messageInput.value;
+            if (name.trim() === '' || message.trim() === '') return; // Don't send empty messages
+
+            // Get the current time
+            const now = new Date();
+            const time = now.toLocaleTimeString();
+
+            // Create a message element with timestamp
+            const newMessage = document.createElement('div');
+            newMessage.innerHTML = `<span class="timestamp">${time}</span> <strong>${name}:</strong> ${message}`;
+            newMessage.className = 'message';
+            chatBox.appendChild(newMessage);
+
+            // Clear message input
+            messageInput.value = '';
+
+            // Change name field color dynamically
+            changeNameColor(name);
+        }
+
+        // Function to change name field color based on the name
+        function changeNameColor(name) {
+            const nameInput = document.getElementById('name-input');
+            let color;
+            
+            switch (name.toLowerCase()) {
+                case 'alice':
+                    color = 'blue';
+                    break;
+                case 'bob':
+                    color = 'green';
+                    break;
+                default:
+                    color = 'black';
+            }
+            
+            nameInput.style.color = color;
+        }
+
+        // Function to add an emoji to the message input
+        function addEmoji(emoji) {
+            messageInput.value += emoji;
+        }
+    </script>
+</body>
+</html>
